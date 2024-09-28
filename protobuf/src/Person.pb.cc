@@ -23,8 +23,8 @@ namespace _pbi = _pb::internal;
 PROTOBUF_CONSTEXPR Person::Person(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.sex_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.id_)*/0
+  , /*decltype(_impl_.sex_)*/0
   , /*decltype(_impl_.age_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PersonDefaultTypeInternal {
@@ -37,7 +37,7 @@ struct PersonDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PersonDefaultTypeInternal _Person_default_instance_;
 static ::_pb::Metadata file_level_metadata_Person_2eproto[1];
-static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Person_2eproto = nullptr;
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Person_2eproto[1];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Person_2eproto = nullptr;
 
 const uint32_t TableStruct_Person_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -61,13 +61,13 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_Person_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014Person.proto\"<\n\006Person\022\n\n\002id\030\001 \001(\005\022\014\n\004"
-  "name\030\002 \001(\014\022\013\n\003sex\030\003 \001(\014\022\013\n\003age\030\004 \001(\005b\006pr"
-  "oto3"
+  "\n\014Person.proto\"B\n\006Person\022\n\n\002id\030\001 \001(\005\022\014\n\004"
+  "name\030\002 \001(\014\022\021\n\003sex\030\003 \001(\0162\004.Sex\022\013\n\003age\030\004 \001"
+  "(\005*\033\n\003Sex\022\010\n\004male\020\000\022\n\n\006female\020\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Person_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Person_2eproto = {
-    false, false, 84, descriptor_table_protodef_Person_2eproto,
+    false, false, 119, descriptor_table_protodef_Person_2eproto,
     "Person.proto",
     &descriptor_table_Person_2eproto_once, nullptr, 0, 1,
     schemas, file_default_instances, TableStruct_Person_2eproto::offsets,
@@ -80,6 +80,20 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_Person_2
 
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_Person_2eproto(&descriptor_table_Person_2eproto);
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Sex_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Person_2eproto);
+  return file_level_enum_descriptors_Person_2eproto[0];
+}
+bool Sex_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
 
 // ===================================================================
 
@@ -98,8 +112,8 @@ Person::Person(const Person& from)
   Person* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.name_){}
-    , decltype(_impl_.sex_){}
     , decltype(_impl_.id_){}
+    , decltype(_impl_.sex_){}
     , decltype(_impl_.age_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -110,14 +124,6 @@ Person::Person(const Person& from)
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
     _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.sex_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sex_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_sex().empty()) {
-    _this->_impl_.sex_.Set(from._internal_sex(), 
       _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.id_, &from._impl_.id_,
@@ -132,18 +138,14 @@ inline void Person::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.name_){}
-    , decltype(_impl_.sex_){}
     , decltype(_impl_.id_){0}
+    , decltype(_impl_.sex_){0}
     , decltype(_impl_.age_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.sex_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sex_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -159,7 +161,6 @@ Person::~Person() {
 inline void Person::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
-  _impl_.sex_.Destroy();
 }
 
 void Person::SetCachedSize(int size) const {
@@ -173,7 +174,6 @@ void Person::Clear() {
   (void) cached_has_bits;
 
   _impl_.name_.ClearToEmpty();
-  _impl_.sex_.ClearToEmpty();
   ::memset(&_impl_.id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.age_) -
       reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.age_));
@@ -203,12 +203,12 @@ const char* Person::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // bytes sex = 3;
+      // .Sex sex = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_sex();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+          _internal_set_sex(static_cast<::Sex>(val));
         } else
           goto handle_unusual;
         continue;
@@ -261,10 +261,11 @@ uint8_t* Person::_InternalSerialize(
         2, this->_internal_name(), target);
   }
 
-  // bytes sex = 3;
-  if (!this->_internal_sex().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_sex(), target);
+  // .Sex sex = 3;
+  if (this->_internal_sex() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_sex(), target);
   }
 
   // int32 age = 4;
@@ -296,16 +297,15 @@ size_t Person::ByteSizeLong() const {
         this->_internal_name());
   }
 
-  // bytes sex = 3;
-  if (!this->_internal_sex().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_sex());
-  }
-
   // int32 id = 1;
   if (this->_internal_id() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_id());
+  }
+
+  // .Sex sex = 3;
+  if (this->_internal_sex() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_sex());
   }
 
   // int32 age = 4;
@@ -334,11 +334,11 @@ void Person::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBU
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
   }
-  if (!from._internal_sex().empty()) {
-    _this->_internal_set_sex(from._internal_sex());
-  }
   if (from._internal_id() != 0) {
     _this->_internal_set_id(from._internal_id());
+  }
+  if (from._internal_sex() != 0) {
+    _this->_internal_set_sex(from._internal_sex());
   }
   if (from._internal_age() != 0) {
     _this->_internal_set_age(from._internal_age());
@@ -365,10 +365,6 @@ void Person::InternalSwap(Person* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.name_, lhs_arena,
       &other->_impl_.name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.sex_, lhs_arena,
-      &other->_impl_.sex_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Person, _impl_.age_)

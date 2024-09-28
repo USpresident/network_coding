@@ -1,13 +1,15 @@
 syntax = "proto3";
-
-message Person {
-    int32 id = 1;
-    bytes name = 2;
-    bytes sex = 3;
-    int32 age = 4;
-}
+import "Person.proto";
 
 message ClassInfo {
     int32 class_no = 1;
     repeated Person stus = 2;
 }
+
+
+// 注释和c++一样
+/* protoc -I./ students.proto --cpp_out=../src
+ * protoc -I ./ students.proto --cpp_out=../src
+ * protoc -I=./ students.proto --cpp_out=../src
+ * protoc students.proto --cpp_out=../src
+ */
